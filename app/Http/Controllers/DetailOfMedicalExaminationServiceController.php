@@ -1,7 +1,5 @@
 <?php
 
-// app/Http/Controllers/DetailOfMedicalExaminationServiceController.php
-
 namespace App\Http\Controllers;
 
 use App\Models\DetailOfMedicalExaminationService;
@@ -9,7 +7,6 @@ use Illuminate\Http\Request;
 
 class DetailOfMedicalExaminationServiceController extends Controller
 {
-    // Thêm chi tiết dịch vụ khám
     public function addDetail(Request $request)
     {
         $request->validate([

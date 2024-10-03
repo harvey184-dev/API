@@ -1,7 +1,5 @@
 <?php
 
-// app/Http/Controllers/DoctorController.php
-
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
@@ -10,7 +8,6 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
-    // Thêm bác sĩ
     public function addDoctor(Request $request)
     {
         $request->validate([
@@ -28,17 +25,15 @@ class DoctorController extends Controller
 
         $doctor = Doctor::create($request->all());
 
-        // Lưu thông tin đăng nhập
         Login::create([
             'username' => $doctor->username,
             'password' => bcrypt($request->password),
-            'role' => 1 // 1: doctor
+            'role' => 1
         ]);
 
         return response()->json($doctor, 201);
     }
 
-    // Đổi mật khẩu
     public function changePassword(Request $request, $id)
     {
         $request->validate(['new_password' => 'required']);
@@ -55,7 +50,6 @@ class DoctorController extends Controller
         return response()->json(['message' => 'Password changed successfully'], 200);
     }
 
-    // Đổi thông tin
     public function updateDoctor(Request $request, $id)
     {
         $doctor = Doctor::find($id);
@@ -64,5 +58,18 @@ class DoctorController extends Controller
         }
         $doctor->update($request->all());
         return response()->json($doctor, 200);
+    }
+
+    public function show($id)
+    {
+        $doctor = Doctor::find($id);
+
+        if (!$doctor) {
+            return response()->json([
+                'message' => 'Bác sĩ không tồn tại!'
+            ], 404);
+        }
+
+        return response()->json($doctor);
     }
 }

@@ -1,5 +1,4 @@
 <?php
-// app/Http/Controllers/HospitalController.php
 
 namespace App\Http\Controllers;
 
@@ -9,7 +8,6 @@ use Illuminate\Http\Request;
 
 class HospitalController extends Controller
 {
-    // Thêm bệnh viện
     public function addHospital(Request $request)
     {
         $request->validate([
@@ -22,23 +20,20 @@ class HospitalController extends Controller
 
         $hospital = Hospital::create($request->all());
 
-        // Lưu thông tin đăng nhập
         Login::create([
             'username' => $hospital->username,
             'password' => bcrypt($request->password),
-            'role' => 0 // 0: hospital
+            'role' => 0
         ]);
 
         return response()->json($hospital, 201);
     }
 
-    // Hiện thị tất cả bệnh viện
     public function getAllHospitals()
     {
         return response()->json(Hospital::all(), 200);
     }
 
-    // Hiện thị chi tiết bệnh viện
     public function getHospitalDetails($id)
     {
         $hospital = Hospital::find($id);
@@ -48,7 +43,6 @@ class HospitalController extends Controller
         return response()->json($hospital, 200);
     }
 
-    // Đổi mật khẩu
     public function changePassword(Request $request, $id)
     {
         $request->validate(['new_password' => 'required']);
@@ -65,7 +59,6 @@ class HospitalController extends Controller
         return response()->json(['message' => 'Password changed successfully'], 200);
     }
 
-    // Sửa bệnh viện
     public function updateHospital(Request $request, $id)
     {
         $hospital = Hospital::find($id);

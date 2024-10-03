@@ -29,6 +29,7 @@ Route::get('/branches/{id}', [BranchController::class, 'getBranchDetails']);
 Route::post('/doctors', [DoctorController::class, 'addDoctor']);
 Route::put('/doctors/{id}/password', [DoctorController::class, 'changePassword']);
 Route::put('/doctors/{id}', [DoctorController::class, 'updateDoctor']);
+Route::get('/doctors/{id}', [DoctorController::class, 'show']);
 
 Route::post('/medical-records', [MedicalRecordController::class, 'addMedicalRecord']);
 Route::get('/patients/{cccdPatient}/medical-records', [MedicalRecordController::class, 'viewMedicalRecords']);
